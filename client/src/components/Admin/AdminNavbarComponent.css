@@ -1,0 +1,45 @@
+.navbar {
+  background-color: #22668a;
+  font-size: 17px;
+}
+
+.link {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.55);
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out;
+}
+
+.link:hover {
+  color: #fff;
+}
+
+.link-drop-down {
+  text-decoration: none;
+  color: black;
+}
+
+.link-drop-down:hover {
+  color: black;
+}
+
+#linkTitle {
+  text-decoration: none;
+  color: #fff;
+}
+
+#nav-username {
+  text-decoration: none;
+  color: #fff;
+}
+
+.nav-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-top: 5.5px;
+}
+
+.nav-icon {
+  margin-right: 4px;
+}

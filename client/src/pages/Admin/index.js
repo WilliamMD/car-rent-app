@@ -1,5 +1,4 @@
-import AdminLogin from './AdminLogin'
+import AdminLogin from "./AdminLogin";
+import AdminHome from "./AdminHome";
 
-export {
-    AdminLogin
-}
+export { AdminLogin, AdminHome };

@@ -1,32 +1,38 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 import "./index.css";
-import { MainComponent } from "./components/";
+import MainComponent from "./components/MainComponent";
 
 function App() {
   const [login, setLogin] = useState(false);
+
   const getToken = (token) => {
     localStorage.setItem("access_token", token);
-  }
+  };
+
   const userLogin = (param) => {
-    setLogin(param)
-  }
+    setLogin(param);
+  };
 
   useEffect(() => {
-    if(localStorage.getItem("access_token")) {
-      setLogin(true)
+    if (localStorage.getItem("access_token")) {
+      setLogin(true);
     } else {
-      setLogin(false)
+      setLogin(false);
     }
-  }, [login])
-
+  }, [login]);
 
   return (
     <div className="App">
       <BrowserRouter>
-        <MainComponent />
+        <MainComponent
+          login={login}
+          // admin={admin}
+          userLogin={userLogin}
+          getToken={getToken}
+        />
       </BrowserRouter>
     </div>
   );

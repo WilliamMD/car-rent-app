@@ -19,7 +19,7 @@ function UserRegister() {
   const submitHandler = (e) => {
     e.preventDefault();
     console.log(user);
-    setUser({ ...user, type: "user"});
+    setUser({ ...user, type: "user" });
     register();
   };
 
@@ -30,12 +30,8 @@ function UserRegister() {
         url: "http://localhost:3000/users/register",
         data: user,
       });
-
-      // const access_token = result.data["access_token"];
-      // getToken(access_token);
-      // userLogin(true);
-      Swal.fire(`Welcome ${user.name}!`, "You are now registered!", "success");
-      history.push("/");
+      Swal.fire(`You are now registered!`, "You may login now.", "success");
+      history.push("/login");
     } catch (err) {
       Swal.fire("Oops", `${err}`, "error");
     }

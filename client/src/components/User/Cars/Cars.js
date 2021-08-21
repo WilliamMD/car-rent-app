@@ -1,8 +1,8 @@
 import React from "react";
 import { Col, Card, Image } from "react-bootstrap";
-import './Car.css'
+import "./Car.css";
 
-function Cars(props){
+function Cars(props) {
   const {
     id,
     nama,
@@ -17,9 +17,9 @@ function Cars(props){
   } = props.car;
 
   const images = CarsImages.map((image) => {
-      return `http://localhost:3000/tmp/my-uploads/${image.filename}`;
-  })
-  console.log(images)
+    return `http://localhost:3000/tmp/my-uploads/${image.filename}`;
+  });
+  console.log(images);
 
   return (
     <Col md={4} xs={6} className="mb-4">
@@ -39,6 +39,6 @@ function Cars(props){
       </Card>
     </Col>
   );
-};
+}
 
 export default Cars;
