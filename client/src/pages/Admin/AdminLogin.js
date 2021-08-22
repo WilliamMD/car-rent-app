@@ -31,7 +31,7 @@ function AdminLogin({ userLogin, getToken }) {
       getToken(access_token);
       userLogin(true);
       Swal.fire(`Welcome back!`, "You are now logged in.", "success");
-      history.push("/admin");
+      history.push("/admin/dashboard");
     } catch (err) {
       Swal.fire("Oops", `${err}`, "error");
     }

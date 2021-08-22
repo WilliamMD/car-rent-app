@@ -12,11 +12,12 @@ class CarController {
   static async show(req, res) {
     try {
       let car = await Car.findAll({
-          order: [["id", "ASC"]],
-          include: {
-            model: CarsImage,
-            where: {primary: true}
-          }});
+        order: [["id", "ASC"]],
+        include: {
+          model: CarsImage,
+          where: { primary: true },
+        },
+      });
 
       res.status(200).json(car);
     } catch (err) {
@@ -27,9 +28,9 @@ class CarController {
   static async getById(req, res) {
     try {
       const id = +req.params.id;
-      let car = await Car.findByPk(id,{ 
+      let car = await Car.findByPk(id, {
         include: CarsImage,
-        order: [[CarsImage, "id", "ASC"]]
+        order: [[CarsImage, "id", "ASC"]],
       });
 
       res.status(200).json(car);
@@ -41,12 +42,15 @@ class CarController {
   static async getUserCar(req, res) {
     try {
       const UserId = +req.params.id;
-      let car = await Car.findAll({ 
-        include: [User, CarsImage],
-        order: [[CarsImage, "id", "ASC"]]
-      },{
-        where: {UserId}
-      });
+      let car = await Car.findAll(
+        {
+          include: [User, CarsImage],
+          order: [[CarsImage, "id", "ASC"]],
+        },
+        {
+          where: { UserId },
+        }
+      );
 
       res.status(200).json(car);
     } catch (err) {
@@ -57,8 +61,16 @@ class CarController {
   static async add(req, res) {
     try {
       const UserId = +req.UserData.id;
-      const { nama, harga_sewa, penumpang, bagasi, pintu, ac, type, description } =
-        req.body;
+      const {
+        nama,
+        harga_sewa,
+        penumpang,
+        bagasi,
+        pintu,
+        ac,
+        type,
+        description,
+      } = req.body;
 
       let car = await Car.create({
         nama,
@@ -71,7 +83,7 @@ class CarController {
         description,
         UserId,
       });
-      
+
       for (let i = 0; i < 4; i++) {
         let primary = false;
         if (i === 0) {
@@ -109,7 +121,7 @@ class CarController {
         IMAGE2,
         IMAGE3,
       } = req.body;
-  
+
       const IMAGES = [];
       IMAGES.push(IMAGE0 === "true" ? true : false);
       IMAGES.push(IMAGE1 === "true" ? true : false);
@@ -159,9 +171,10 @@ class CarController {
 
       tempCar.forEach(async (obj) => {
         await CarsImage.update(
-          { filename: obj.filename,
+          {
+            filename: obj.filename,
             filesize: obj.filesize,
-            filetype: obj.filetype
+            filetype: obj.filetype,
           },
           { where: { id: obj.CarId } }
         );

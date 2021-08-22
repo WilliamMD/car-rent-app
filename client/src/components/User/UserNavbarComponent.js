@@ -15,7 +15,7 @@ const UserNavbarComponent = ({ login, userLogin }) => {
     e.preventDefault();
     userLogin(false);
     localStorage.clear();
-    history.push("/");
+    history.push("/login");
   };
 
   // All this just so I can display the user name and avatar on the navbar
@@ -103,7 +103,7 @@ const UserNavbarComponent = ({ login, userLogin }) => {
                         icon={faUserCircle}
                         className="nav-icon"
                       />
-                      <span>Profile</span>
+                      <span>Profil</span>
                     </Link>
                   </NavDropdown.Item>
                   <NavDropdown.Item>

@@ -1,4 +1,5 @@
 import AdminLogin from "./AdminLogin";
-import AdminHome from "./AdminHome";
+import AdminDashboard from "./AdminDashboard";
+import CarList from "./CarList";
 
-export { AdminLogin, AdminHome };
+export { AdminLogin, AdminDashboard, CarList };

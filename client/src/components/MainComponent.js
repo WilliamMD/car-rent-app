@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
-import { Container } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import axios from "axios";
 
 import { Home, UserRegister, UserLogin, Cart } from "../pages/User";
 import UserNavbarComponent from "./User/UserNavbarComponent";
+import Footer from "./Footer/Footer";
 
-import { AdminLogin, AdminHome } from "../pages/Admin";
-import AdminNavbarComponent from "./Admin/AdminNavbarComponent";
+import { AdminLogin, AdminDashboard, CarList } from "../pages/Admin";
+import { AdminNavbarComponent, SidebarComponent } from "./Admin/";
 
 import NotFound from "../pages/NotFound";
 
@@ -54,28 +55,38 @@ const MainComponent = ({ login, userLogin, getToken }) => {
               </Route>
             </Switch>
           </Container>
+          <Footer />
         </>
       ) : login && user.type === "admin" ? (
         // For type admin
         <>
           <AdminNavbarComponent userLogin={userLogin} />
-          <Container fluid className="mt-3">
-            <Switch>
-              <Route exact path="/admin">
-                <AdminHome />
-              </Route>
-            </Switch>
+          <Container fluid>
+            <Row g={0}>
+              <SidebarComponent />
+              <Switch>
+                <Route exact path="/admin/dashboard">
+                  <AdminDashboard />
+                </Route>
+                <Route exact path="/admin/car_list">
+                  <CarList />
+                </Route>
+                <Route>
+                  <NotFound />
+                </Route>
+              </Switch>
+            </Row>
           </Container>
+          <Footer />
         </>
       ) : !login ? (
         // For unauthenticated users
         <>
-          <UserNavbarComponent login={login} userLogin={userLogin} />
           <Container fluid className="mt-3">
             <Switch>
-              <Route exact path="/">
+              {/* <Route exact path="/">
                 <Home />
-              </Route>
+              </Route> */}
               <Route exact path="/login">
                 <UserLogin userLogin={userLogin} getToken={getToken} />
               </Route>

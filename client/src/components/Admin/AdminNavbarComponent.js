@@ -44,11 +44,11 @@ function AdminNavbarComponent({ login, userLogin }) {
 
   return (
     <div>
-      <Navbar variant="dark" className="bg-success" expand="lg">
+      <Navbar variant="dark" className="bg-success g-0" expand="lg">
         <Container>
           <Navbar.Brand>
-            <Link to="/admin" id="linkTitle">
-              <strong>RentCar ADMIN</strong>
+            <Link to="/admin/dashboard" id="linkTitle">
+              <strong>RentCar | ADMIN</strong>
             </Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -57,7 +57,7 @@ function AdminNavbarComponent({ login, userLogin }) {
             <Nav>
               <Image className="nav-avatar" src={avatarTemp} alt="..." />
               <NavDropdown
-                title={<span>{user.name}</span>}
+                title={<strong>{user.name}</strong>}
                 id="basic-nav-dropdown"
               >
                 <NavDropdown.Item>
