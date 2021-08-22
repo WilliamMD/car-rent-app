@@ -41,7 +41,7 @@ class CarController {
 
   static async getUserCar(req, res) {
     try {
-      const UserId = +req.params.id;
+      const UserId = +req.UserData.id;
       let car = await Car.findAll(
         {
           include: [User, CarsImage],
