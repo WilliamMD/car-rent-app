@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
-import "../LoginRegisterForm.css";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -39,9 +38,32 @@ function UserRegister() {
 
   return (
     <>
-      <div className="form-container">
-        <h4 className="form-title">User Register</h4>
-        <Form className="form">
+      <div
+        className="form-container"
+        style={{
+          width: "600px",
+          boxShadow:
+            "0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.2)",
+          borderRadius: "30px",
+          position: "absolute",
+          left: "50%",
+          top: "54%",
+          transform: "translate(-50%, -50%)",
+          padding: "10px",
+        }}
+      >
+        <h4 className="form-title" style={{ textAlign: "center" }}>
+          User Register
+        </h4>
+        <Form
+          className="form"
+          style={{
+            marginTop: "40px",
+            marginBottom: "40px",
+            marginLeft: "50px",
+            marginRight: "50px",
+          }}
+        >
           <Form.Group className="mb-3">
             <Form.Label>Email address</Form.Label>
             <Form.Control

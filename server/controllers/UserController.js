@@ -176,15 +176,15 @@ class UserController {
 
   static async uploadAvatar(req, res) {
     try {
-      let avatar = req.file.path;
+      const avatar = req.file.filename;
       const id = req.UserData.id;
 
       let result = await User.update(
         {
-          avatar,
+          avatar: avatar,
         },
         {
-          where: { id },
+          where: { id: id },
         }
       );
 

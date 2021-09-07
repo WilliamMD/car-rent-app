@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.CarsComment);
       User.hasMany(models.Car);
       User.hasMany(models.Cart);
-      User.hasMany(models.Order);
+      User.hasMany(models.Order, { foreignKey: "order_name" });
     }
   }
   User.init(

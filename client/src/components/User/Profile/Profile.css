@@ -1,0 +1,36 @@
+.info {
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.card {
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+.icon {
+  margin-right: 5px;
+  text-decoration: none;
+  list-style: none;
+  color: black;
+}
+
+.icon:hover {
+  color: white;
+}
+
+.form-container {
+  width: 600px;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 30px;
+  position: relative;
+  left: 50%;
+  top: 54%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+}
+
+.form {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  margin-left: 50px;
+  margin-right: 50px;
+}

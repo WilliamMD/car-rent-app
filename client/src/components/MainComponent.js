@@ -3,11 +3,31 @@ import { Switch, Route } from "react-router-dom";
 import { Container, Row } from "react-bootstrap";
 import axios from "axios";
 
-import { Home, UserRegister, UserLogin, Cart } from "../pages/User";
-import UserNavbarComponent from "./User/UserNavbarComponent";
+import {
+  Home,
+  Welcome,
+  UserRegister,
+  UserLogin,
+  Cart,
+  CarPage,
+  Profile,
+  Transaction,
+} from "../pages/User";
+import { UserNavbarComponent } from "./User";
 import Footer from "./Footer/Footer";
 
-import { AdminLogin, AdminDashboard, CarList } from "../pages/Admin";
+import {
+  AdminLogin,
+  AdminDashboard,
+  CarList,
+  CarAdd,
+  CarEdit,
+  CarDetails,
+  AdminProfile,
+  AdminProfilEdit,
+  TransactionSuccess,
+  AdminTransaction,
+} from "../pages/Admin";
 import { AdminNavbarComponent, SidebarComponent } from "./Admin/";
 
 import NotFound from "../pages/NotFound";
@@ -29,7 +49,6 @@ const MainComponent = ({ login, userLogin, getToken }) => {
           access_token,
         },
       });
-      console.log(result.data);
       setUser(result.data);
     } catch (err) {
       console.log(err);
@@ -42,19 +61,31 @@ const MainComponent = ({ login, userLogin, getToken }) => {
         // For type user
         <>
           <UserNavbarComponent login={login} userLogin={userLogin} />
-          <Container fluid className="mt-3">
-            <Switch>
-              <Route exact path="/">
+          <Switch>
+            <Route exact path="/">
+              <Welcome />
+            </Route>
+            <Container fluid className="mt-3">
+              <Route exact path="/home">
                 <Home />
+              </Route>
+              <Route exact path="/profile">
+                <Profile />
               </Route>
               <Route exact path="/cart">
                 <Cart />
               </Route>
-              <Route>
-                <NotFound />
+              <Route exact path="/car/:id">
+                <CarPage login={login} />
               </Route>
-            </Switch>
-          </Container>
+              <Route exact path="/transaction">
+                <Transaction />
+              </Route>
+            </Container>
+            <Route>
+              <NotFound />
+            </Route>
+          </Switch>
           <Footer />
         </>
       ) : login && user.type === "admin" ? (
@@ -65,11 +96,32 @@ const MainComponent = ({ login, userLogin, getToken }) => {
             <Row g={0}>
               <SidebarComponent />
               <Switch>
-                <Route exact path="/admin/dashboard">
+                <Route exact path="/">
                   <AdminDashboard />
                 </Route>
-                <Route exact path="/admin/car_list">
+                <Route exact path="/car/list">
                   <CarList />
+                </Route>
+                <Route exact path="/car/add">
+                  <CarAdd />
+                </Route>
+                <Route exact path="/car/:id/edit">
+                  <CarEdit />
+                </Route>
+                <Route exact path="/car/:id">
+                  <CarDetails />
+                </Route>
+                <Route exact path="/profile">
+                  <AdminProfile />
+                </Route>
+                <Route exact path="/profile/edit">
+                  <AdminProfilEdit />
+                </Route>
+                <Route exact path="/transaction/list">
+                  <AdminTransaction />
+                </Route>
+                <Route exact path="/transaction/completed/list">
+                  <TransactionSuccess />
                 </Route>
                 <Route>
                   <NotFound />
@@ -82,25 +134,34 @@ const MainComponent = ({ login, userLogin, getToken }) => {
       ) : !login ? (
         // For unauthenticated users
         <>
-          <Container fluid className="mt-3">
-            <Switch>
-              {/* <Route exact path="/">
+          <UserNavbarComponent login={login} userLogin={userLogin} />
+          <Switch>
+            <Route exact path="/">
+              <Welcome />
+              <Footer />
+            </Route>
+            <Route exact path="/home">
+              <Container fluid className="mt-3">
                 <Home />
-              </Route> */}
-              <Route exact path="/login">
-                <UserLogin userLogin={userLogin} getToken={getToken} />
-              </Route>
-              <Route exact path="/register">
-                <UserRegister />
-              </Route>
-              <Route exact path="/admin/login">
-                <AdminLogin userLogin={userLogin} getToken={getToken} />
-              </Route>
-              <Route>
-                <NotFound />
-              </Route>
-            </Switch>
-          </Container>
+              </Container>
+              <Footer />
+            </Route>
+            <Route exact path="/car/:id">
+              <Container fluid className="mt-3">
+                <CarPage login={login} />
+              </Container>
+              <Footer />
+            </Route>
+            <Route exact path="/login">
+              <UserLogin userLogin={userLogin} getToken={getToken} />
+            </Route>
+            <Route exact path="/register">
+              <UserRegister />
+            </Route>
+            <Route exact path="/admin/login">
+              <AdminLogin userLogin={userLogin} getToken={getToken} />
+            </Route>
+          </Switch>
         </>
       ) : (
         <></>

@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Nav, Navbar, NavDropdown, Container, Image } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
+import {
+  Nav,
+  Navbar,
+  NavDropdown,
+  Container,
+  Image,
+  Badge,
+} from "react-bootstrap";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import "./UserNavbarComponent.css";
 import axios from "axios";
 
@@ -9,7 +16,10 @@ import { faSignOutAlt, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 
 const UserNavbarComponent = ({ login, userLogin }) => {
   const [user, setUser] = useState({});
+  const [carts, setCarts] = useState([]);
+  const [orders, setOrders] = useState([]);
   const history = useHistory();
+  const location = useLocation();
 
   const logoutHandler = (e) => {
     e.preventDefault();
@@ -18,10 +28,15 @@ const UserNavbarComponent = ({ login, userLogin }) => {
     history.push("/login");
   };
 
-  // All this just so I can display the user name and avatar on the navbar
+  const access_token = localStorage.getItem("access_token");
   useEffect(() => {
     getUser();
   }, [login]);
+
+  useEffect(() => {
+    getOrders();
+    getCarts();
+  }, [access_token]);
 
   const getUser = async () => {
     try {
@@ -38,7 +53,37 @@ const UserNavbarComponent = ({ login, userLogin }) => {
       console.log(err);
     }
   };
-  //
+
+  const getCarts = async () => {
+    try {
+      let result = await axios({
+        method: "GET",
+        url: "http://localhost:3000/line_items/cart",
+        headers: {
+          access_token,
+        },
+      });
+      setCarts(result.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getOrders = async () => {
+    try {
+      let result = await axios({
+        method: "GET",
+        url: "http://localhost:3000/line_items/order",
+        headers: {
+          access_token,
+        },
+      });
+      console.log(result.data);
+      setOrders(result.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const avatarTemp = `http://localhost:3000/tmp/my-uploads/${user.avatar}`;
 
@@ -47,43 +92,48 @@ const UserNavbarComponent = ({ login, userLogin }) => {
       <Container>
         <Navbar.Brand>
           <Link to="/" id="linkTitle">
-            <strong>RentCar</strong>
+            <strong>AutoRent</strong>
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link>
-              <Link to="/" className="link">
+              <Link to="/home" className="link">
                 Home
               </Link>
             </Nav.Link>
-            <Nav.Link>
-              {login ? (
+            {login && (
+              <Nav.Link>
                 <Link to="/cart" className="link">
-                  Keranjang
+                  Keranjang{" "}
+                  {carts.length > 0 && (
+                    <Badge bg="danger">{carts.length}</Badge>
+                  )}
                 </Link>
-              ) : (
-                <Link to="/login" className="link">
-                  Keranjang
-                </Link>
-              )}
-            </Nav.Link>
-            <Nav.Link>
-              {login ? (
+              </Nav.Link>
+            )}
+            {login && (
+              <Nav.Link>
                 <Link to="/transaction" className="link">
-                  Transaksi
+                  Transaksi{" "}
+                  {orders.length > 0 && (
+                    <Badge bg="danger">{orders.length}</Badge>
+                  )}
                 </Link>
-              ) : (
-                <Link to="/login" className="link">
-                  Transaksi
-                </Link>
-              )}
-            </Nav.Link>
+              </Nav.Link>
+            )}
           </Nav>
           <Nav>
             {login && (
-              <Image className="nav-avatar" src={avatarTemp} alt="..." />
+              <Image
+                className="nav-avatar"
+                src={avatarTemp}
+                style={{
+                  objectFit: "cover",
+                }}
+                alt="..."
+              />
             )}
             <NavDropdown
               title={
@@ -98,7 +148,7 @@ const UserNavbarComponent = ({ login, userLogin }) => {
               {login ? (
                 <>
                   <NavDropdown.Item>
-                    <Link className="link-drop-down" to="profile">
+                    <Link className="link-drop-down" to="/profile">
                       <FontAwesomeIcon
                         icon={faUserCircle}
                         className="nav-icon"
@@ -110,6 +160,7 @@ const UserNavbarComponent = ({ login, userLogin }) => {
                     <Link
                       className="link-drop-down"
                       onClick={(e) => logoutHandler(e)}
+                      replace={location.pathname === "/login"}
                     >
                       <FontAwesomeIcon
                         icon={faSignOutAlt}
@@ -122,12 +173,20 @@ const UserNavbarComponent = ({ login, userLogin }) => {
               ) : (
                 <>
                   <NavDropdown.Item>
-                    <Link className="link-drop-down" to="register">
+                    <Link
+                      className="link-drop-down"
+                      to="/register"
+                      replace={location.pathname === "/register"}
+                    >
                       Register
                     </Link>
                   </NavDropdown.Item>
                   <NavDropdown.Item>
-                    <Link className="link-drop-down" to="login">
+                    <Link
+                      className="link-drop-down"
+                      to="/login"
+                      replace={location.pathname === "/login"}
+                    >
                       Log In
                     </Link>
                   </NavDropdown.Item>

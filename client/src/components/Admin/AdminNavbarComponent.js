@@ -44,20 +44,27 @@ function AdminNavbarComponent({ login, userLogin }) {
 
   return (
     <div>
-      <Navbar variant="dark" className="bg-success g-0" expand="lg">
+      <Navbar variant="dark" className="bg-dark g-0" expand="lg">
         <Container>
           <Navbar.Brand>
-            <Link to="/admin/dashboard" id="linkTitle">
-              <strong>RentCar | ADMIN</strong>
+            <Link to="/" id="linkTitle">
+              <strong>AutoRent | ADMIN</strong>
             </Link>
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto"></Nav>
             <Nav>
-              <Image className="nav-avatar" src={avatarTemp} alt="..." />
+              <Image
+                className="nav-avatar"
+                src={avatarTemp}
+                alt="..."
+                style={{
+                  objectFit: "cover",
+                }}
+              />
               <NavDropdown
-                title={<strong>{user.name}</strong>}
+                title={<strong style={{ color: "white" }}>{user.name}</strong>}
                 id="basic-nav-dropdown"
               >
                 <NavDropdown.Item>

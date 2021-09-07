@@ -5,7 +5,7 @@
 
 .link {
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(180, 107, 107, 0.55);
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out;
 }
@@ -21,6 +21,7 @@
 
 .link-drop-down:hover {
   color: black;
+  opacity: 0.5;
 }
 
 #linkTitle {

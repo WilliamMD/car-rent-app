@@ -1,45 +1,104 @@
 import React from "react";
-import { Col, ListGroup, Accordion } from "react-bootstrap";
+import { Col, ListGroup, Accordion, FormControl, Form } from "react-bootstrap";
 import "./Category.css";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faCouch, faCar } from "@fortawesome/free-solid-svg-icons";
 
-function CategoryList() {
+function CategoryList({ searchFunction, typeFilterFunction }) {
+  const clearAllFilters = () => {
+    typeFilterFunction("");
+    searchFunction("");
+  };
+
   return (
-    <Col md={3} mt="2">
+    <Col md={2}>
       <h4>
         <strong>Filter Mobil</strong>
       </h4>
       <hr />
-      <Accordion defaultActiveKey="1" flush className="mb-1">
+      <div>
+        <Form>
+          <FormControl
+            type="search"
+            placeholder="Cari Mobil..."
+            className="mr-2"
+            aria-label="Search"
+            onChange={(e) => {
+              searchFunction(`${e.target.value}`);
+            }}
+          />
+        </Form>
+      </div>
+
+      <ListGroup variant="flush">
+        <ListGroup.Item
+          style={{ cursor: "pointer" }}
+          className="category"
+          onClick={() => clearAllFilters()}
+        >
+          <strong>Bersihkan Filter</strong>
+        </ListGroup.Item>
+      </ListGroup>
+
+      <Accordion
+        defaultActiveKey="1"
+        flush
+        className="mb-1"
+        style={{ backgroundColor: "black" }}
+      >
         <Accordion.Item eventKey="0">
-          <Accordion.Header>
-            Tipe Mobil
-          </Accordion.Header>
+          <Accordion.Header>Tipe Mobil</Accordion.Header>
           <Accordion.Body>
             <ListGroup variant="flush">
+              {/* <ListGroup.Item
+                style={{ cursor: "pointer" }}
+                className="category"
+                onClick={() => typeFilterFunction("Sedan")}
+              >
+                Sedan
+              </ListGroup.Item> */}
+              {/* <ListGroup.Item
+                style={{ cursor: "pointer" }}
+                className="category"
+                onClick={() => typeFilterFunction("City Car")}
+              >
+                City Car
+              </ListGroup.Item> */}
               <ListGroup.Item
                 style={{ cursor: "pointer" }}
                 className="category"
+                onClick={() => typeFilterFunction("Minivan")}
               >
-                Cras justo odio
+                Minivan
               </ListGroup.Item>
               <ListGroup.Item
                 style={{ cursor: "pointer" }}
                 className="category"
+                onClick={() => typeFilterFunction("SUV")}
               >
-                Cras justo odio
+                SUV
               </ListGroup.Item>
+              <ListGroup.Item
+                style={{ cursor: "pointer" }}
+                className="category"
+                onClick={() => typeFilterFunction("Hatchback")}
+              >
+                Hatchback
+              </ListGroup.Item>
+              {/* <ListGroup.Item
+                style={{ cursor: "pointer" }}
+                className="category"
+                onClick={() => typeFilterFunction("Double Cabin")}
+              >
+                Double Cabin
+              </ListGroup.Item> */}
             </ListGroup>
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
 
+      {/* 
       <Accordion defaultActiveKey="1" flush className="mb-1">
         <Accordion.Item eventKey="0">
-          <Accordion.Header>
-            Jumlah Seat
-            </Accordion.Header>
+          <Accordion.Header>Jumlah Seat</Accordion.Header>
           <Accordion.Body>
             <ListGroup variant="flush">
               <ListGroup.Item
@@ -115,7 +174,7 @@ function CategoryList() {
             </ListGroup>
           </Accordion.Body>
         </Accordion.Item>
-      </Accordion>
+      </Accordion> */}
     </Col>
   );
 }

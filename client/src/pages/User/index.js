@@ -1,11 +1,19 @@
-import Home from './Home';
-import UserLogin from './UserLogin';
-import UserRegister from './UserRegister';
-import Cart from './Cart';
+import Home from "./Home";
+import Welcome from "./Welcome";
+import UserLogin from "./UserLogin";
+import UserRegister from "./UserRegister";
+import Cart from "./Orders/Cart";
+import CarPage from "./Cars/CarPage";
+import Profile from "./Profile/Profile";
+import Transaction from "./Orders/Transaction";
 
 export {
-    Home,
-    UserLogin,
-    UserRegister,
-    Cart
-}
+  Home,
+  Welcome,
+  UserLogin,
+  UserRegister,
+  Cart,
+  CarPage,
+  Profile,
+  Transaction,
+};

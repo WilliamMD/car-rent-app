@@ -14,14 +14,10 @@ import {
 
 function SidebarComponent() {
   return (
-    <Col md={2} className="bg-dark pr-3 pt-4">
+    <Col md={2} className="bg-secondary pr-3 pt-4" style={{ fontSize: 15 }}>
       <Nav defaultActiveKey="/admin" ml={3} className="flex-column mb-5">
         <Nav.Link className="text-white">
-          <Link
-            to="/admin/dashboard"
-            className="text-white"
-            style={{ textDecoration: 0 }}
-          >
+          <Link to="/" className="text-white" style={{ textDecoration: 0 }}>
             <FontAwesomeIcon icon={faTachometerAlt} className="nav-icon" />
             Dashboard
           </Link>
@@ -29,7 +25,7 @@ function SidebarComponent() {
         <hr className="bg-secondary" />
         <Nav.Link eventKey="link-1" className="text-white">
           <Link
-            to="/admin/profile"
+            to="/profile"
             className="text-white"
             style={{ textDecoration: 0 }}
           >
@@ -40,7 +36,7 @@ function SidebarComponent() {
         <hr className="bg-secondary" />
         <Nav.Link eventKey="link-1" className="text-white">
           <Link
-            to="/admin/car_list"
+            to="/car/list"
             className="text-white"
             style={{ textDecoration: 0 }}
           >
@@ -51,23 +47,23 @@ function SidebarComponent() {
         <hr className="bg-secondary" />
         <Nav.Link eventKey="link-2" className="text-white">
           <Link
-            to="/admin/transaction_list"
+            to="/transaction/list"
             className="text-white"
             style={{ textDecoration: 0 }}
           >
             <FontAwesomeIcon icon={faListAlt} className="nav-icon" />
-            Daftar Transaksi
+            Transaksi Berlangsung
           </Link>
         </Nav.Link>
         <hr className="bg-secondary" />
         <Nav.Link eventKey="link-1" className="text-white">
           <Link
-            to="/admin/customer_list"
+            to="/transaction/completed/list"
             className="text-white"
             style={{ textDecoration: 0 }}
           >
             <FontAwesomeIcon icon={faUsers} className="nav-icon" />
-            Daftar Pembeli
+            Transaksi Sukses
           </Link>
         </Nav.Link>
         <hr className="bg-secondary" />

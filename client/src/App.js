@@ -7,11 +7,9 @@ import MainComponent from "./components/MainComponent";
 
 function App() {
   const [login, setLogin] = useState(false);
-
   const getToken = (token) => {
     localStorage.setItem("access_token", token);
   };
-
   const userLogin = (param) => {
     setLogin(param);
   };
@@ -29,7 +27,6 @@ function App() {
       <BrowserRouter>
         <MainComponent
           login={login}
-          // admin={admin}
           userLogin={userLogin}
           getToken={getToken}
         />

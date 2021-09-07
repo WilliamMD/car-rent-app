@@ -3,7 +3,6 @@ import "./Footer.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  fab,
   faTwitterSquare,
   faFacebook,
   faLinkedin,
@@ -14,7 +13,7 @@ function Footer() {
   return (
     <footer className="footer">
       <div className="footer-content">
-        <h3>RentCar</h3>
+        <h3>AutoRent</h3>
         <p>
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua.
