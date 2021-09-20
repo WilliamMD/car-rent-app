@@ -1,15 +1,29 @@
-import React from 'react';
-import CarList from '../../components/Cars/CarList';
-import CategoryList from '../../components/Categories/CategoryList';
-import { Row } from "react-bootstrap";
+import React, { useState } from "react";
+import { CarList, CategoryList } from "../../components/User";
+import { Row, Carousel } from "react-bootstrap";
 
 function Home() {
-    return (
-        <Row>
-            <CategoryList />
-            <CarList/>
-        </Row>
-    )
+  const [search, setSearch] = useState("");
+  const [typeFilter, setTypeFilter] = useState("");
+
+  const searchFunction = (param) => {
+    setSearch(param);
+  };
+  const typeFilterFunction = (param) => {
+    setTypeFilter(param);
+  };
+
+  return (
+    <>
+      <Row>
+        <CategoryList
+          searchFunction={searchFunction}
+          typeFilterFunction={typeFilterFunction}
+        />
+        <CarList search={search} typeFilter={typeFilter} />
+      </Row>
+    </>
+  );
 }
 
 export default Home;

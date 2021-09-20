@@ -1,6 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
-const { encrypter } = require('../helpers/bcrypt')
+const { encrypter } = require("../helpers/bcrypt");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.CarsComment);
       User.hasMany(models.Car);
       User.hasMany(models.Cart);
-      User.hasMany(models.Order);
+      User.hasMany(models.Order, { foreignKey: "order_name" });
     }
   }
   User.init(
@@ -31,8 +31,9 @@ module.exports = (sequelize, DataTypes) => {
       hooks: {
         beforeCreate(user, option) {
           user.password = encrypter(user.password);
-          user.salt = encrypter('rahasia');
+          user.salt = encrypter("rahasia");
           user.avatar = "defaultAvatar.png";
+          user.type = "user";
         },
       },
       sequelize,

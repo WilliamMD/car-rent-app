@@ -1,0 +1,35 @@
+.card-image {
+  width: 300px;
+  height: 180px;
+}
+
+.sort {
+  font-size: 15px;
+}
+
+.link-car {
+  text-decoration: none;
+  color: black;
+}
+.link-car:hover {
+  color: black;
+}
+.sort:hover {
+  color: rgb(172, 167, 167);
+  cursor: pointer;
+}
+
+.card-action-title {
+  text-align: center;
+  font-size: 25px;
+}
+
+.list-group-item:hover {
+  cursor: pointer;
+  background-color: rgb(172, 167, 167);
+}
+
+.star {
+  cursor: pointer;
+  transition: color 200ms;
+}

@@ -20,7 +20,6 @@ class UserController {
     try {
       const id = req.UserData.id;
       let user = await User.findByPk(id);
-
       if (user) {
         res.status(200).json(user);
       } else {
@@ -46,7 +45,7 @@ class UserController {
           message: "Email already exist!",
         });
       } else {
-        let user_token = await User.create({
+        let user = await User.create({
           name,
           email,
           password,
@@ -54,19 +53,72 @@ class UserController {
           gender,
           type,
         });
-        let access_token = tokenGenerator(user_token);
-        res.status(201).json({ access_token });
+        res.status(201).json({ user });
       }
     } catch (err) {
       res.status(500).json(err);
     }
   }
 
-  static async login(req, res) {
+  static async loginUser(req, res) {
     try {
       const { email, password } = req.body;
       let user = await User.findOne({
         where: { email },
+      });
+      if (user) {
+        if (decrypter(password, user.password)) {
+          let access_token = tokenGenerator(user);
+          res.status(200).json({
+            access_token,
+          });
+        } else {
+          res.status(403).json({
+            message: "Invalid Password",
+          });
+        }
+      } else {
+        res.status(404).json({
+          message: " Not Found ! ",
+        });
+      }
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  }
+
+  static async loginUser(req, res) {
+    try {
+      const { email, password } = req.body;
+      let user = await User.findOne({
+        where: { email, type: "user" },
+      });
+      if (user) {
+        if (decrypter(password, user.password)) {
+          let access_token = tokenGenerator(user);
+          res.status(200).json({
+            access_token,
+          });
+        } else {
+          res.status(403).json({
+            message: "Invalid Password",
+          });
+        }
+      } else {
+        res.status(404).json({
+          message: " Not Found ! ",
+        });
+      }
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  }
+
+  static async loginAdmin(req, res) {
+    try {
+      const { email, password } = req.body;
+      let user = await User.findOne({
+        where: { email, type: "admin" },
       });
       if (user) {
         if (decrypter(password, user.password)) {
@@ -124,15 +176,15 @@ class UserController {
 
   static async uploadAvatar(req, res) {
     try {
-      let avatar = req.file.path;
+      const avatar = req.file.filename;
       const id = req.UserData.id;
 
       let result = await User.update(
         {
-          avatar,
+          avatar: avatar,
         },
         {
-          where: { id },
+          where: { id: id },
         }
       );
 
